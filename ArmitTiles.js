@@ -72,7 +72,7 @@ rl.on('line', (line) => {
 
   //MIGRATEDB
   function migrateLevel() {
-    const queryMigrate = `select * from pathTiles where level_zoom = 13;`
+    const queryMigrate = `select * from pathTiles where level_zoom = ${utils.levelZoom};`
     sqlite.query(queryMigrate, (level16Paths) => {
       insertIntoLevelDB(level16Paths);
 
@@ -221,8 +221,8 @@ function onlyOneDir() {
   var finalPath = utils.finalPath;
   console.log('getting paths OnlyOneDirectory!\n');
   var counterProgress = 0;
-  //const query = `select *, count(*) from pathTiles group by file_name, level_zoom, dir_1 having count(*) = 1;`;
-  const query = `select *, count(*) from pathTiles group by file_name, level_zoom, dir_1 having count(*) = 1 and level_zoom=13;`
+  const query = `select *, count(*) from pathTiles group by file_name, level_zoom, dir_1 having count(*) = 1;`;
+  //const query = `select *, count(*) from pathTiles group by file_name, level_zoom, dir_1 having count(*) = 1 and level_zoom=13;`
   sqlite.query(query, (objects) => {
     objects.forEach(sqliteObject => {
       counterProgress++;
