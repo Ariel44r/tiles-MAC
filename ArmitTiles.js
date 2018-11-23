@@ -39,6 +39,10 @@ rl.on('line', (line) => {
         onlyOneDir();
         break;
 
+      case 'move snippet':
+        moveSnippet();
+        break;
+
       case 'clear':
         console.clear();
         break;
@@ -110,12 +114,12 @@ rl.on('line', (line) => {
   //GROUPPEDPATHS
   function getGrouppedPaths() {
     var querygrouppedPathsQuery = `select *, count(*) from ${utils.table} group by file_name, level_zoom, dir_1 having count(*) > 1;`;
-      sqlite.query(querygrouppedPathsQuery, (grouppedPaths) => {
-        lenghtOfRepeatPaths = grouppedPaths.length
-        console.log(`${grouppedPaths.length} tiles groupped`);
-        getGrouppedPathsRec(grouppedPaths);
+    sqlite.query(querygrouppedPathsQuery, (grouppedPaths) => {
+      lenghtOfRepeatPaths = grouppedPaths.length
+      console.log(`${grouppedPaths.length} tiles groupped`);
+      getGrouppedPathsRec(grouppedPaths);
 
-      });
+    });
   }
   
   function getGrouppedPathsRec(grouppedPathsR) {
@@ -257,4 +261,27 @@ function moveFile(pathArray){
       alreadyExists.push(pathArray[1]);
     }
   }
+}
+
+function moveSnippet() {
+  var finalPath = utils.finalPath;
+  console.log('move snippet of tiles!\n');
+  var counterProgress = 0;
+  const query = `select * from pathTiles where CAST(dir_1 as int)<4000;`;
+  sqlite.query(query, (objects) => {
+    objects.forEach(sqliteObject => {
+      counterProgress++;
+      if(sqliteObject.cuadrant != ''){
+        if(!fs.existsSync(`${finalPath}/${sqliteObject.level_zoom}/${sqliteObject.dir_1}`)){
+          fs.mkdirSync(`${finalPath}/${sqliteObject.level_zoom}/${sqliteObject.dir_1}`, 0o777)
+        }
+        const path_1 = `${path.getFullPath(sqliteObject)}`;
+        const path_2 = `${finalPath}/${sqliteObject.level_zoom}/${sqliteObject.dir_1}/${sqliteObject.file_name}.png`;
+        var pathArray = [path_1, path_2];
+        moveFile(pathArray);
+        console.log(`[ progress: ${100*counterProgress/objects.length} % ]`);
+
+      }
+    })
+  });
 }
