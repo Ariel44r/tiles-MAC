@@ -1,8 +1,10 @@
-var path = '/Users/arielramirez/Documents/Ariel/tilesAgain/main';
-var table = "pathTilesLevel15"
-var tableInsert = "pathTilesRepeatLevel15"
-var levelZoom = 13;
+var path = '/Users/arielramirez/Documents/Ariel/tilesAgain/testTiles/main';
+var pathOfPatch = '/Users/arielramirez/Documents/Ariel/tilesAgain/testTiles/reduceMain'
+var table = "pathTilesLevel16"
+var tableInsert = "pathTilesRepeatLevel16"
+var levelZoom = 16;
 exports.finalPath = path;
 exports.table = table;
 exports.tableInsert = tableInsert;
 exports.levelZoom = levelZoom;
+exports.pathOfPatch = pathOfPatch;

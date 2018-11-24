@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon tileMerge.js",
+    "start": "nodemon ArmitTiles.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
