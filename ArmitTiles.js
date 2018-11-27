@@ -267,7 +267,7 @@ function moveSnippet() {
   var finalPath = utils.pathOfPatch;
   console.log('move snippet of tiles!\n');
   var counterProgress = 0;
-  const query = `select * from pathTiles where CAST(file_name as int)>=10000;`;
+  const query = `select * from pathTiles where CAST(file_name as int)<5000;`;
   sqlite.query(query, (objects) => {
     objects.forEach(sqliteObject => {
       counterProgress++;
