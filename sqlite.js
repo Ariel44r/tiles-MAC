@@ -119,14 +119,14 @@ exports.query = function(query, callback){
 
 function randomStringVal(callback) {
     callback(randomString.generate({
-        length: '20',
+        length: '12',
         charset: 'numeric'
     }));
 }
 
 exports.randomStringVal = function (callback) {
     callback(randomString.generate({
-        length: '20',
+        length: '12',
         charset: 'numeric'
     }));
 }

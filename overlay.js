@@ -83,9 +83,8 @@ function overlayRecursive(objectArray){
               overlayRecursive(objectArray);
             } else {
               renameFile(objectArray[0]);
-              console.log(`rename file to: ${path0}`);
+              console.log(`file merged: ${path.getFinalPathFromObject(objectArray[0])}`);
             }
-            console.log(`file merged: ${path.getFinalPathFromObject(objectArray[0])}`);
           } else {
             console.log(err);
           }
